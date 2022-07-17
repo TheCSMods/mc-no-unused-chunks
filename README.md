@@ -71,4 +71,8 @@ UNFLAG_CHANCE=100
 ### Mod Menu and Cloth Config API
 The easier way of configuring the mod is to install the [Mod Menu](https://www.curseforge.com/minecraft/mc-mods/modmenu) and the [Cloth Config API](https://www.curseforge.com/minecraft/mc-mods/cloth-config) mods, and then use those mods to configure this mod in a settings menu while the game is running.
 
-
+##
+<p align=center>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/no-unused-chunks-fabric"><img alt="CurseForge" src="https://cf.way2muchnoise.eu/645755.svg"/></a>
+  <a href="https://modrinth.com/mod/no-unused-chunks-fabric"><img alt="Modrinth" src="https://img.shields.io/modrinth/dt/U8avpWmO?label=Modrinth"></a>
+</p>
