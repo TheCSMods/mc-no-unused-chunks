@@ -4,7 +4,7 @@
 	"version": "${version}",
 
 	"name": "No Unused Chunks",
-	"description": "Reduces world size by discarding unused chunks",
+	"description": "Reduces world size by discarding unused chunks.",
 	"authors": ["TheCSDev"],
 	"contact":
 	{
