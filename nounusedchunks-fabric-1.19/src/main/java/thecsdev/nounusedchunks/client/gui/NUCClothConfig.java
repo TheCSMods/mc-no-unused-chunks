@@ -5,7 +5,7 @@ import me.shedaniel.clothconfig2.api.ConfigCategory;
 import me.shedaniel.clothconfig2.api.ConfigEntryBuilder;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import thecsdev.nounusedchunks.config.NUCConfig;
 
 public final class NUCClothConfig
@@ -36,5 +36,5 @@ public final class NUCClothConfig
 		return builder.build();
 	}
 	
-	public static MutableText tt(String key) { return new TranslatableText(key); }
+	public static MutableText tt(String key) { return Text.translatable(key); }
 }
