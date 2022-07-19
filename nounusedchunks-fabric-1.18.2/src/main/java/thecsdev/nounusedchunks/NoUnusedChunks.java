@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import thecsdev.nounusedchunks.client.NoUnusedChunksClient;
+import thecsdev.nounusedchunks.command.NUCCommand;
 import thecsdev.nounusedchunks.config.NUCConfig;
 import thecsdev.nounusedchunks.server.NoUnusedChunksServer;
 
@@ -69,6 +70,12 @@ public abstract class NoUnusedChunks
 		else return EnvType.SERVER;
 	}
 	// --------------------------------------------------
+	/**
+	 * Returns the registered {@link NUCCommand}.
+	 * Will return null if the mod hasn't been initialized yet.
+	 */
+	public abstract NUCCommand<?> getCommand();
+	// ==================================================
 	public static Screen getConfigScreen(Screen parent)
 	{
 		//if cloth config is loaded, create a screen and return it
