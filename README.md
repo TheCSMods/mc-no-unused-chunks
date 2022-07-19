@@ -6,7 +6,7 @@ In other words, any newly generated chunks that the player or an entity or a blo
 This mod shouldn't cause any issues, but it is still a good idea to back-up worlds, just in case.
 
 ## How does the mod work?
-Every chunk in a world has a special flag called "needs saving". The game uses this flag to keep trach of whether any changes were made to a chunk. When this flag is set to "true", the game will then save the chunk the moment it gets unloaded. The game does this in order to save performance by avoiding saving chunks that had no changes made to them. 
+Every chunk in a world has a special flag called "needs saving". The game uses this flag to keep track of whether any changes were made to a chunk. When this flag is set to "true", the game will then save the chunk the moment it gets unloaded. The game does this in order to save performance by avoiding saving chunks that had no changes made to them. 
  
 As soon as the game generates a new chunk, that chunk is then immediately marked as "needs saving" by the game, causing the game to save those chunks the moment they get unloaded. This is very likely done to save performance by avoiding generating the same chunks every time a player comes in their range. 
  
