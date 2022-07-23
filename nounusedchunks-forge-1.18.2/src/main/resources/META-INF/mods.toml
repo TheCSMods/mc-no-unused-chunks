@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[40,)"
+license="LGPL-3.0-or-later"
+
+[[mods]]
+modId="nounusedchunks"
+version="${file.jarVersion}"
+displayName="No Unused Chunks"
+logoFile="nounusedchunks.png"
+credits=""
+authors="TheCSDev"
+description="Reduces world size by discarding unused chunks."
+
+[[dependencies.nounusedchunks]]
+    modId="forge"
+    mandatory=true
+    versionRange="[40,)"
+    ordering="NONE"
+    side="BOTH"
+
+[[dependencies.nounusedchunks]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.18.2,1.19)"
+    ordering="NONE"
+    side="BOTH"
