@@ -4,12 +4,12 @@ license="LGPL-3.0-or-later"
 
 [[mods]]
 modId="nounusedchunks"
-version="${file.jarVersion}"
+version="0.1"
 displayName="No Unused Chunks"
-logoFile="nounusedchunks.png"
-credits=""
-authors="TheCSDev"
 description="Reduces world size by discarding unused chunks."
+logoFile="nounusedchunks_logo.png"
+authors="TheCSDev"
+credits=""
 
 [[dependencies.nounusedchunks]]
     modId="forge"
