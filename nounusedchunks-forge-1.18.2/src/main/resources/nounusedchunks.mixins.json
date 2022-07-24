@@ -4,7 +4,7 @@
 	"package": "thecsdev.nounusedchunks.mixin",
 	"refmap": "mixins.nounusedchunks.refmap.json",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": ["SimpleGenerationTaskMixin"],
+	"mixins": ["ChunkStatusMixin"],
 	"injectors":
 	{
 		"defaultRequire": 1
