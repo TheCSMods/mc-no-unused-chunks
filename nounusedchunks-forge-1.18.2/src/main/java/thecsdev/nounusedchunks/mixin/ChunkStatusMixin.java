@@ -36,7 +36,7 @@ public abstract class ChunkStatusMixin
 			CallbackInfoReturnable<CompletableFuture<Either<ChunkAccess, ChunkHolder.ChunkLoadingFailure>>> callback)
 	{
 		//handle properties
-		if(ENABLED) return;
+		if(!ENABLED) return;
 		if(UNFLAG_CHANCE != 100)
 		{
 			Random rnd = new Random();
@@ -58,8 +58,9 @@ public abstract class ChunkStatusMixin
 				
 				//unmark the chunk
 				chunk.setUnsaved(false);
+				System.out.println("Unsaved a chunk at [" + chunk.getPos().x + ", " + chunk.getPos().z + "]");
 			}
-			catch(Exception exc) {}
+			catch(Exception exc) { exc.printStackTrace(); }
 		};
 		
 		//let the server execute the task once it is able to

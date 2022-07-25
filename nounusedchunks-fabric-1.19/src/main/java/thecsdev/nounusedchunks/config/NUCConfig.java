@@ -38,6 +38,9 @@ public final class NUCConfig
 			FileOutputStream fos = new FileOutputStream(fProp);
 			prop.store(fos, NoUnusedChunks.ModID + " properties");
 			fos.close();
+			
+			//log
+			NoUnusedChunks.LOGGER.info("Save '" + NoUnusedChunks.ModID + "' config.");
 		}
 		catch(IOException ioExc)
 		{
@@ -68,6 +71,9 @@ public final class NUCConfig
 			//read the properties
 			ENABLED = smartBool(prop.getProperty("ENABLED"), true);
 			UNFLAG_CHANCE = smartInt(prop.getProperty("UNFLAG_CHANCE"), 1, 100, 100);
+			
+			//log
+			NoUnusedChunks.LOGGER.info("Loaded '" + NoUnusedChunks.ModID + "' config.");
 		}
 		catch(IOException ioExc)
 		{
