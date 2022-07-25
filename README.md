@@ -73,6 +73,6 @@ The easier way of configuring the mod is to install the [Mod Menu](https://www.c
 
 ##
 <p align=center>
-  <a href="https://www.curseforge.com/minecraft/mc-mods/no-unused-chunks-fabric"><img alt="CurseForge" src="https://cf.way2muchnoise.eu/645755.svg"/></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/no-unused-chunks"><img alt="CurseForge" src="https://cf.way2muchnoise.eu/645755.svg"/></a>
   <a href="https://modrinth.com/mod/U8avpWmO"><img alt="Modrinth" src="https://img.shields.io/modrinth/dt/U8avpWmO?label=Modrinth"></a>
 </p>
