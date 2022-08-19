@@ -1,4 +1,6 @@
 {
+	"nounusedchunks.backupprompt.removeunusedchunks": "Remove unused chunks",
+
 	"nounusedchunks.clothconfig.required": "[%s] The mod config GUI requires the Cloth Config API mod.",
 	"nounusedchunks.clothconfig.title": "No Unused Chunks config",
 	"nounusedchunks.clothconfig.general": "General",

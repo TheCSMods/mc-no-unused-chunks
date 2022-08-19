@@ -23,7 +23,7 @@
 		"server": ["thecsdev.nounusedchunks.server.NoUnusedChunksServer"],
 		"modmenu": ["thecsdev.nounusedchunks.client.gui.NUCModMenu"]
 	},
-	"mixins": ["nounusedchunks.mixins.json"],
+	"mixins": ["nounusedchunks.mixins.json", "nounusedchunks.client.mixins.json"],
 
 	"depends":
 	{
