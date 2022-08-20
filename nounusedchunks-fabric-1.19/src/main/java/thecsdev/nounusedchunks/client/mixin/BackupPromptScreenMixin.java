@@ -1,5 +1,7 @@
 package thecsdev.nounusedchunks.client.mixin;
 
+import static thecsdev.nounusedchunks.config.NUCConfig.OW_RUC;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 import org.spongepowered.asm.mixin.injection.At;
@@ -11,6 +13,8 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
+import thecsdev.nounusedchunks.client.gui.widgets.ActionCheckboxWidget;
+import thecsdev.nounusedchunks.config.NUCConfig;
 
 @Mixin(BackupPromptScreen.class)
 public abstract class BackupPromptScreenMixin extends Screen
@@ -18,7 +22,7 @@ public abstract class BackupPromptScreenMixin extends Screen
 	// ==================================================
 	protected BackupPromptScreenMixin(Text title) { super(title); }
 	// ==================================================
-	public CheckboxWidget removeUnusedChunksCheckbox;
+	public ActionCheckboxWidget removeUnusedChunksCheckbox;
 	// --------------------------------------------------
 	@Accessor("showEraseCacheCheckbox")
 	public abstract boolean getShowEraseCacheCheckbox();
@@ -29,12 +33,20 @@ public abstract class BackupPromptScreenMixin extends Screen
 	@Inject(method = "init", at = @At("TAIL"))
 	public void init(CallbackInfo callback)
 	{
+		//reset temp. values:
+		OW_RUC = false;
+		
 		//define the check-box
 		int i = getEraseCacheCheckbox().y, j = getEraseCacheCheckbox().getHeight() + 5;
-		removeUnusedChunksCheckbox = new CheckboxWidget(
+		removeUnusedChunksCheckbox = new ActionCheckboxWidget(
 				this.width / 2 - 155 + 80, i + j,
 				150, 20,
-				Text.translatable("nounusedchunks.backupprompt.removeunusedchunks"), false);
+				Text.translatable("nounusedchunks.backupprompt.removeunusedchunks"), OW_RUC, true,
+				checkbox ->
+				{
+					OW_RUC = checkbox.isChecked();
+					NUCConfig.saveProperties();
+				});
 		
 		//if showing the check-boxes, add the check-box below the
 		//vanilla one, and move the buttons down
