@@ -14,7 +14,6 @@ import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
 import thecsdev.nounusedchunks.client.gui.widgets.ActionCheckboxWidget;
-import thecsdev.nounusedchunks.config.NUCConfig;
 
 @Mixin(BackupPromptScreen.class)
 public abstract class BackupPromptScreenMixin extends Screen
@@ -42,11 +41,7 @@ public abstract class BackupPromptScreenMixin extends Screen
 				this.width / 2 - 155 + 80, i + j,
 				150, 20,
 				Text.translatable("nounusedchunks.backupprompt.removeunusedchunks"), OW_RUC, true,
-				checkbox ->
-				{
-					OW_RUC = checkbox.isChecked();
-					NUCConfig.saveProperties();
-				});
+				checkbox -> OW_RUC = checkbox.isChecked());
 		
 		//if showing the check-boxes, add the check-box below the
 		//vanilla one, and move the buttons down

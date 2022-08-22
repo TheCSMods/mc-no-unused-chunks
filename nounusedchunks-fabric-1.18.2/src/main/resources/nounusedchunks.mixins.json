@@ -3,6 +3,6 @@
 	"minVersion": "0.8",
 	"package": "thecsdev.nounusedchunks.mixin",
 	"compatibilityLevel": "JAVA_17",
-	"mixins": ["ChunkStatusMixin"],
+	"mixins": ["ChunkStatusMixin", "WorldUpdaterMixin"],
 	"injectors": { "defaultRequire": 1 }
 }
