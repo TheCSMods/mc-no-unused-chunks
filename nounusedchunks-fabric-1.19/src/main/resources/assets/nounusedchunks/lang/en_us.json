@@ -1,5 +1,6 @@
 {
-	"nounusedchunks.backupprompt.removeunusedchunks": "Remove unused chunks",
+	"nounusedchunks.backupprompt.removeuninhabitedchunks": "Remove uninhabited chunks",
+	"nounusedchunks.backupprompt.removeuninhabitedchunks.tooltip": "Removes all chunks that were never inhabited by a player.\nWhile this may reduce the world size by a lot, keep in\nmind that this may also remove chunks you might need,\nwithout actually having visited them. For example, this\nmay end up removing chunks modified by another mod or a\ntool or a program. Please back up your world before\ndoing this, and make sure the chunks got removed properly.",
 
 	"nounusedchunks.clothconfig.required": "[%s] The mod config GUI requires the Cloth Config API mod.",
 	"nounusedchunks.clothconfig.title": "No Unused Chunks config",

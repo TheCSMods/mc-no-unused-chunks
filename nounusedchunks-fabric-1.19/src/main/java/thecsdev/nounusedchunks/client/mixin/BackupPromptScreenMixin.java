@@ -1,5 +1,6 @@
 package thecsdev.nounusedchunks.client.mixin;
 
+import static thecsdev.nounusedchunks.NoUnusedChunks.tt;
 import static thecsdev.nounusedchunks.config.NUCConfig.OW_RUC;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -40,8 +41,9 @@ public abstract class BackupPromptScreenMixin extends Screen
 		removeUnusedChunksCheckbox = new ActionCheckboxWidget(
 				this.width / 2 - 155 + 80, i + j,
 				150, 20,
-				Text.translatable("nounusedchunks.backupprompt.removeunusedchunks"), OW_RUC, true,
+				Text.translatable("nounusedchunks.backupprompt.removeuninhabitedchunks"), OW_RUC, true,
 				checkbox -> OW_RUC = checkbox.isChecked());
+		removeUnusedChunksCheckbox.setTooltip(tt("nounusedchunks.backupprompt.removeuninhabitedchunks.tooltip"));
 		
 		//if showing the check-boxes, add the check-box below the
 		//vanilla one, and move the buttons down

@@ -1,5 +1,6 @@
 package thecsdev.nounusedchunks.client.mixin;
 
+import static thecsdev.nounusedchunks.NoUnusedChunks.tt;
 import static thecsdev.nounusedchunks.config.NUCConfig.OW_RUC;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,7 +15,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.CheckboxWidget;
 import net.minecraft.client.gui.widget.ClickableWidget;
 import net.minecraft.text.Text;
-import net.minecraft.text.TranslatableText;
 import thecsdev.nounusedchunks.client.gui.widgets.ActionCheckboxWidget;
 
 @Mixin(BackupPromptScreen.class)
@@ -45,8 +45,9 @@ public abstract class BackupPromptScreenMixin extends Screen
 		removeUnusedChunksCheckbox = new ActionCheckboxWidget(
 				this.width / 2 - 155 + 80, i + j,
 				150, 20,
-				new TranslatableText("nounusedchunks.backupprompt.removeunusedchunks"), OW_RUC, true,
+				tt("nounusedchunks.backupprompt.removeuninhabitedchunks"), OW_RUC, true,
 				checkbox -> OW_RUC = checkbox.isChecked());
+		removeUnusedChunksCheckbox.setTooltip(tt("nounusedchunks.backupprompt.removeuninhabitedchunks.tooltip"));
 		
 		//if the game is showing the check-boxes, add the check-box below the
 		//vanilla one, and move the buttons down

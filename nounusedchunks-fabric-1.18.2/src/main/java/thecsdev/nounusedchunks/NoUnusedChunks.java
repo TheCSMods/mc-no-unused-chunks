@@ -7,6 +7,8 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
 import net.minecraft.util.math.ChunkPos;
@@ -89,7 +91,9 @@ public abstract class NoUnusedChunks
 		//else return null
 		else return null;
 	}
-	// ==================================================
+	// --------------------------------------------------
+	public static Text tt(String translationKey) { return new TranslatableText(translationKey); }
+	// --------------------------------------------------
 	/**
 	 * Returns true if a chunk is unused.
 	 * (well, it's supposed to. idk)
