@@ -2,8 +2,11 @@ package thecsdev.nounusedchunks.mixin;
 
 import static thecsdev.nounusedchunks.config.NUCConfig.OW_RUC;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.ListIterator;
 
@@ -39,7 +42,7 @@ import net.minecraft.world.storage.VersionedChunkStorage;
 import net.minecraft.world.updater.WorldUpdater;
 import thecsdev.nounusedchunks.NoUnusedChunks;
 
-@Mixin(WorldUpdater.class)
+@Mixin(value = WorldUpdater.class, priority = 1001)
 public abstract class WorldUpdaterMixin
 {
 	@Shadow public static Logger LOGGER;
@@ -90,17 +93,21 @@ public abstract class WorldUpdaterMixin
 		    return;
 		}
 		
-		//and here we... retrieve all chunks and their positions? idk
+		//retrieve chunk regions
 		float f = this.totalChunkCount;
 		ImmutableMap<RegistryKey<World>, ListIterator<ChunkPos>> immutableMap = builder.build();
-		ImmutableMap.Builder<RegistryKey<World>, VersionedChunkStorage> builder2 = ImmutableMap.builder();
+		ImmutableMap.Builder<RegistryKey<World>, VersionedChunkStorage> worldRegionFilesBuilder = ImmutableMap.builder();
+		ImmutableMap.Builder<RegistryKey<World>, VersionedChunkStorage> __worldTempRegionFilesBuilder = ImmutableMap.builder();
 		for (UnmodifiableIterator<RegistryKey<World>> unmodifiableIterator2 = immutableSet.iterator(); unmodifiableIterator2.hasNext();)
 		{
 		    RegistryKey<World>registryKey2 = unmodifiableIterator2.next();
 		    Path path = this.session.getWorldDirectory(registryKey2);
-		    builder2.put(registryKey2, new VersionedChunkStorage(path.resolve("region"), this.dataFixer, true));
+		    worldRegionFilesBuilder.put(registryKey2, new VersionedChunkStorage(path.resolve("region"), this.dataFixer, true));
+		    __worldTempRegionFilesBuilder.put(registryKey2, new VersionedChunkStorage(path
+		    		.resolve("region").resolve(NoUnusedChunks.ModID + "_temp"), this.dataFixer, true));
 		}
-		ImmutableMap<RegistryKey<World>, VersionedChunkStorage> worldRegionFiles = builder2.build();
+		ImmutableMap<RegistryKey<World>, VersionedChunkStorage> worldRegionFiles = worldRegionFilesBuilder.build();
+		ImmutableMap<RegistryKey<World>, VersionedChunkStorage> __worldTempRegionFiles = __worldTempRegionFilesBuilder.build();
 		
 		//now for the upgrading process
 		long l = Util.getMeasuringTimeMs(); //used to measure the time it took to complete all this
@@ -117,6 +124,7 @@ public abstract class WorldUpdaterMixin
 		        RegistryKey<World> worldRegKey = worldIterator.next();
 		        ListIterator<ChunkPos> worldChunkIterator = (ListIterator<ChunkPos>) immutableMap.get(worldRegKey);
 		        VersionedChunkStorage versionedChunkStorage = (VersionedChunkStorage) worldRegionFiles.get(worldRegKey);
+		        VersionedChunkStorage __vcsTemp = __worldTempRegionFiles.get(worldRegKey);
 		        
 		        if (worldChunkIterator.hasNext())
 		        {
@@ -124,33 +132,33 @@ public abstract class WorldUpdaterMixin
 		            boolean willChunkNotSkip = false;
 		            try
 		            {
-		                NbtCompound nbtCompound = null;
-		                try { nbtCompound = versionedChunkStorage.getNbt(chunkPos); } catch (IOException ioExc) {}
+		                NbtCompound oldChunkNbt = null;
+		                try { oldChunkNbt = versionedChunkStorage.getNbt(chunkPos); } catch (IOException ioExc) {}
 		                
-		                if (nbtCompound != null)
+		                if (oldChunkNbt != null)
 		                {
-		                    int chunkDataVersion = VersionedChunkStorage.getDataVersion(nbtCompound);
+		                    int chunkDataVersion = VersionedChunkStorage.getDataVersion(oldChunkNbt);
 		                    ChunkGenerator chunkGenerator = ((DimensionOptions) this.generatorOptions.getDimensions().get(GeneratorOptions.toDimensionOptionsKey(worldRegKey))).getChunkGenerator();
-		                    NbtCompound nbtCompound2 = versionedChunkStorage.updateChunkNbt(worldRegKey, () -> this.persistentStateManager, nbtCompound, chunkGenerator.getCodecKey());
-		                    ChunkPos chunkPos2 = new ChunkPos(nbtCompound2.getInt("xPos"), nbtCompound2.getInt("zPos"));
+		                    NbtCompound newChunkNbt = versionedChunkStorage.updateChunkNbt(worldRegKey, () -> this.persistentStateManager, oldChunkNbt, chunkGenerator.getCodecKey());
+		                    ChunkPos chunkPos2 = new ChunkPos(newChunkNbt.getInt("xPos"), newChunkNbt.getInt("zPos"));
 		                    
 		                    if (!chunkPos2.equals(chunkPos))
 		                        LOGGER.warn("Chunk {} has invalid position {}", chunkPos, chunkPos2);
 		                    
 		                    boolean chunkChangesMade = (chunkDataVersion < SharedConstants.getGameVersion().getWorldVersion());
-		                    boolean chunkIsUnused = (nbtCompound2.contains("InhabitedTime") && nbtCompound2.getLong("InhabitedTime") == 0);
+		                    boolean chunkIsUnused = NoUnusedChunks.isChunkUnused(worldRegKey, chunkPos, generatorOptions, newChunkNbt);
 		                    
 		                    //erasing chunk cache (vanilla behavior)
 		                    if (this.eraseCache && !chunkIsUnused)
 		                    {
 		                    	//erase heightmaps, lighting, and isLightOn
-		                        chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("Heightmaps"));
-		                        chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("isLightOn"));
-		                        nbtCompound2.remove("Heightmaps");
-		                        nbtCompound2.remove("isLightOn");
+		                        chunkChangesMade = (chunkChangesMade || newChunkNbt.contains("Heightmaps"));
+		                        chunkChangesMade = (chunkChangesMade || newChunkNbt.contains("isLightOn"));
+		                        newChunkNbt.remove("Heightmaps");
+		                        newChunkNbt.remove("isLightOn");
 		                        
 		                        //erase chunk section cache
-		                        NbtList nbtList = nbtCompound2.getList("sections", 10);
+		                        NbtList nbtList = newChunkNbt.getList("sections", 10);
 		                        for (int j = 0; j < nbtList.size(); j++)
 		                        {
 		                            NbtCompound nbtCompound3 = nbtList.getCompound(j);
@@ -164,25 +172,15 @@ public abstract class WorldUpdaterMixin
 		                    //erasing unused chunk data
 		                    else if(chunkIsUnused)
 		                    {
-		                    	nbtCompound2 = null;
+		                    	newChunkNbt = null;
 		                    	chunkChangesMade = true;
-		                    	/*chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("Lights"));
-		                    	chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("sections"));
-		                    	chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("PostProcessing"));
-		                    	chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("block_ticks"));
-		                    	chunkChangesMade = (chunkChangesMade || nbtCompound2.contains("fluid_ticks"));
-		                    	nbtCompound2.remove("Lights");
-		                    	nbtCompound2.remove("sections");
-		                    	nbtCompound2.remove("PostProcessing");
-		                    	nbtCompound2.remove("block_ticks");
-	                    		nbtCompound2.remove("fluid_ticks");
-	                    		nbtCompound2.putString("Status", "structure_starts");*/
 		                    }
 		                    
 		                    //save changes
+		                    if(!chunkIsUnused) __vcsTemp.setNbt(chunkPos, newChunkNbt);
 		                    if (chunkChangesMade)
 		                    {
-		                        versionedChunkStorage.setNbt(chunkPos, nbtCompound2);
+		                        //versionedChunkStorage.setNbt(chunkPos, newChunkNbt); -- already stored in __vcsTemp
 		                        willChunkNotSkip = true;
 		                    }
 		                }
@@ -212,12 +210,29 @@ public abstract class WorldUpdaterMixin
 		
 		//finishing...
 		this.status = new TranslatableText("optimizeWorld.stage.finished");
-		for (UnmodifiableIterator<VersionedChunkStorage> unmodifiableIterator = worldRegionFiles.values().iterator(); unmodifiableIterator.hasNext();)
+		worldRegionFiles.forEach((wrKey, vcsValue) ->
 		{
-		    VersionedChunkStorage versionedChunkStorage2 = unmodifiableIterator.next();
-		    try { versionedChunkStorage2.close(); }
+			try
+			{
+				//close the region files
+				vcsValue.close();
+				__worldTempRegionFiles.get(wrKey).close();
+				
+				//move the temp. region files to override the old ones
+				Path worldRegDir = this.session.getWorldDirectory(wrKey).resolve("region");
+				Path worldRegTempDir = worldRegDir.resolve(NoUnusedChunks.ModID + "_temp");
+				for(File wrtdChild : worldRegTempDir.toFile().listFiles())
+				{
+					Files.move(
+							wrtdChild.toPath(),
+							worldRegDir.resolve(wrtdChild.getName()),
+							StandardCopyOption.REPLACE_EXISTING);
+				}
+				worldRegTempDir.toFile().delete();
+			}
 		    catch (IOException iOException) { LOGGER.error("Error upgrading chunk", iOException); }
-		}
+			catch (NullPointerException e) {}
+		});
 		this.persistentStateManager.save();
 		
 		//finish measuring, and log the time. then mark 'done' as true

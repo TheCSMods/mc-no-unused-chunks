@@ -6,8 +6,13 @@ import org.slf4j.LoggerFactory;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.crash.CrashException;
 import net.minecraft.util.crash.CrashReport;
+import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.registry.RegistryKey;
+import net.minecraft.world.World;
+import net.minecraft.world.gen.GeneratorOptions;
 import thecsdev.nounusedchunks.client.NoUnusedChunksClient;
 import thecsdev.nounusedchunks.command.NUCCommand;
 import thecsdev.nounusedchunks.config.NUCConfig;
@@ -83,6 +88,16 @@ public abstract class NoUnusedChunks
 			return thecsdev.nounusedchunks.client.gui.NUCClothConfig.createConfigScreen(parent);
 		//else return null
 		else return null;
+	}
+	// ==================================================
+	/**
+	 * Returns true if a chunk is unused.
+	 * (well, it's supposed to. idk)
+	 */
+	public static boolean isChunkUnused(RegistryKey<World> worldRegKey, ChunkPos chunkPos, GeneratorOptions generatorOptions, NbtCompound chunkNbt)
+	{
+		return chunkNbt.contains("InhabitedTime") &&
+				chunkNbt.getLong("InhabitedTime") == 0;
 	}
 	// ==================================================
 }
