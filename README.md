@@ -44,7 +44,13 @@ Doing what the mod does has it's own trade-offs, the main one being performance.
 It is because of this trade-off that the `UNFLAG_CHANCE` config property was introduced into the mod. This property defines the percentage of chunks that will be affected by the mod. By default, 100% of newly generated chunks are unflagged. Decrease this value to increase the world generation performance, but keep in mind that that will increase the world size as well.
 
 ## Can the mod remove unused chunks generated before the mod was installed or while the mod was disabled?
-Unfortunately it can not. Any previously saved chunks will not be affected by the mod. Doing so would likely require the mod to mess with the world files by detecting and removing unused chunks from there, which I do not know how do to.
+**Edit:** As of v1.2, it finally can, but it is very important that you read the important notice.
+
+### Important notice:
+- The game keeps track of which chunks players have interacted with using a special variable called "InhabitedTime". Whenever a player enters a chunk or does something to a chunk, the value of "InhabitedTime" increases. The way this feature works is by going through every chunk in every region file of a given world, and removing all chunks whose "InhabitedTime" value is set to "0". This means that any and all chunks whose "InhabitedTime" is "0" will get removed. It is important to keep in mind that if you used a creative tool/mod/program to modify chunks without ever entering them and making changes to them manually, or if the game fails to keep track of "InhabitedTime", there is a high chance those chunks will get removed anyways. Always back up your worlds before doing this, and immediately make sure no chunks you needed somehow got removed.
+- If there are any issues/bugs or if you do spot this mod's feature removing chunks it isn't suppoed to remove, please let me know so I can see if something can be done to resolve it.
+
+(For <v1.2) Unfortunately it can not. Any previously saved chunks will not be affected by the mod. Doing so would likely require the mod to mess with the world files by detecting and removing unused chunks from there, which I do not know how do to.
 
 ## Configuring the mod
 There are several ways to configure the mod. The main way of configuring it is by going into the `config` directory and creating a `nounusedchunks.properties` file.
