@@ -33,9 +33,6 @@ public abstract class BackupPromptScreenMixin extends Screen
 	@Inject(method = "init", at = @At("TAIL"))
 	public void init(CallbackInfo callback)
 	{
-		//reset temp. values:
-		OW_RUC = false;
-		
 		//define the check-box
 		int i = getEraseCacheCheckbox().y, j = getEraseCacheCheckbox().getHeight() + 5;
 		removeUnusedChunksCheckbox = new ActionCheckboxWidget(

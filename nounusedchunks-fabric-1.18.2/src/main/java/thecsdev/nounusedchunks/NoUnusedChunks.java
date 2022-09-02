@@ -7,6 +7,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.NbtCompound;
+import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
 import net.minecraft.util.crash.CrashException;
@@ -76,6 +77,9 @@ public abstract class NoUnusedChunks
 		if(Instance instanceof NoUnusedChunksClient) return EnvType.CLIENT;
 		else return EnvType.SERVER;
 	}
+	
+	public static boolean isClient() { return getEnviroment() == EnvType.CLIENT; }
+	public static boolean isServer() { return getEnviroment() == EnvType.SERVER; }
 	// --------------------------------------------------
 	/**
 	 * Returns the registered {@link NUCCommand}.
@@ -93,6 +97,7 @@ public abstract class NoUnusedChunks
 	}
 	// --------------------------------------------------
 	public static Text tt(String translationKey) { return new TranslatableText(translationKey); }
+	public static Text lt(String text) { return new LiteralText(text); }
 	// --------------------------------------------------
 	/**
 	 * Returns true if a chunk is unused.

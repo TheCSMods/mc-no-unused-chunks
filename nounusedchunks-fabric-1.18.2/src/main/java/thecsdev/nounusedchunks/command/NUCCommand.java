@@ -25,7 +25,12 @@ public abstract class NUCCommand<CS extends CommandSource>
 										.executes(context -> exec_config_ENABLED(context))))
 						.then(literal("UNFLAG_CHANCE")
 								.then(argument("value", IntegerArgumentType.integer(1, 100))
-										.executes(context -> exec_config_UNFLAGCHANCE(context))))));
+										.executes(context -> exec_config_UNFLAGCHANCE(context))))
+						
+						.then(literal("OW_RUC").requires(cs -> NoUnusedChunks.isServer())
+								.then(argument("value", BoolArgumentType.bool())
+										.executes(context -> exec_config_OW_RUC(context))))
+						));
 	}
 	// --------------------------------------------------
 	private int exec_config_ENABLED(CommandContext<CS> context)
@@ -38,6 +43,13 @@ public abstract class NUCCommand<CS extends CommandSource>
 	private int exec_config_UNFLAGCHANCE(CommandContext<CS> context)
 	{
 		NUCConfig.UNFLAG_CHANCE = context.getArgument("value", Integer.class);
+		NUCConfig.saveProperties();
+		return 1;
+	}
+	
+	private int exec_config_OW_RUC(CommandContext<CS> context)
+	{
+		NUCConfig.OW_RUC = context.getArgument("value", Boolean.class);
 		NUCConfig.saveProperties();
 		return 1;
 	}

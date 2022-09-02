@@ -2,6 +2,7 @@ package thecsdev.nounusedchunks.client.gui.util;
 
 import static net.minecraft.client.gui.DrawableHelper.drawTextWithShadow;
 import static net.minecraft.client.gui.DrawableHelper.fill;
+import static thecsdev.nounusedchunks.NoUnusedChunks.lt;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -9,7 +10,6 @@ import java.awt.Dimension;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.font.TextRenderer;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import thecsdev.nounusedchunks.client.NoUnusedChunksClient;
 
@@ -50,7 +50,7 @@ public class GuiUtils
 		int lineY = 0;
 		for (String line : lines)
 		{
-			drawTextWithShadow(matrices, tr, new LiteralText(line), mouseX + 5, mouseY + 5 + lineY, COLOR_WHITE);
+			drawTextWithShadow(matrices, tr, lt(line), mouseX + 5, mouseY + 5 + lineY, COLOR_WHITE);
 			lineY += tr.getWrappedLinesHeight(line, textSize.width);
 		}
 	}

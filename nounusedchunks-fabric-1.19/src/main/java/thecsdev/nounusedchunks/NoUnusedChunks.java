@@ -75,6 +75,10 @@ public abstract class NoUnusedChunks
 		if(Instance instanceof NoUnusedChunksClient) return EnvType.CLIENT;
 		else return EnvType.SERVER;
 	}
+	
+
+	public static boolean isClient() { return getEnviroment() == EnvType.CLIENT; }
+	public static boolean isServer() { return getEnviroment() == EnvType.SERVER; }
 	// --------------------------------------------------
 	/**
 	 * Returns the registered {@link NUCCommand}.

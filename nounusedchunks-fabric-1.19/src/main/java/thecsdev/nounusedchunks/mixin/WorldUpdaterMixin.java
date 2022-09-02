@@ -237,5 +237,8 @@ public abstract class WorldUpdaterMixin
 		l = Util.getMeasuringTimeMs() - l;
 		LOGGER.info("World optimizaton finished after {} ms", Long.valueOf(l));
 		this.done = true;
+		
+		//clear temp. config variables.
+		OW_RUC = false;
 	}
 }

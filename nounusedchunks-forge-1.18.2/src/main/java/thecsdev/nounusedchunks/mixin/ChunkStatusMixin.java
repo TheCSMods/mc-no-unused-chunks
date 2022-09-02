@@ -58,7 +58,6 @@ public abstract class ChunkStatusMixin
 				
 				//unmark the chunk
 				chunk.setUnsaved(false);
-				System.out.println("Unsaved a chunk at [" + chunk.getPos().x + ", " + chunk.getPos().z + "]");
 			}
 			catch(Exception exc) { exc.printStackTrace(); }
 		};
