@@ -1,5 +1,6 @@
 package thecsdev.nounusedchunks;
 
+import java.util.Random;
 import java.util.logging.Logger;
 
 import net.fabricmc.api.EnvType;
@@ -106,5 +107,7 @@ public abstract class NoUnusedChunks
 		return chunkNbt.contains("InhabitedTime") &&
 				chunkNbt.getLong("InhabitedTime") == 0;
 	}
+	// ==================================================
+	public static int nextInt(Random random, int min, int max) { return random.nextInt((max - min) + 1) + min; }
 	// ==================================================
 }

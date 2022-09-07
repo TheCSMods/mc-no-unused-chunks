@@ -21,6 +21,7 @@ import net.minecraft.structure.StructureManager;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.ChunkStatus;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
+import thecsdev.nounusedchunks.NoUnusedChunks;
 import thecsdev.nounusedchunks.config.NUCConfig;
 
 @Mixin(ChunkStatus.class)
@@ -42,7 +43,7 @@ public abstract class ChunkStatusMixin
 		if(!NUCConfig.ENABLED) return;
 		if(UNFLAG_CHANCE != 100)
 		{
-			if(!(UNFLAG_CHANCE >= noUnusedChunks_rng.nextInt(0, 101))) return;
+			if(!(UNFLAG_CHANCE >= NoUnusedChunks.nextInt(noUnusedChunks_rng, 0, 101))) return;
 		}
 		
 		//turn the action into a Runnable task
@@ -60,7 +61,7 @@ public abstract class ChunkStatusMixin
 				if(chunk == null) return;
 				
 				//unmark the chunk
-				chunk.setShouldSave(false);
+				chunk.setShouldSave(false); //TODO - apparently this does nothing on 1.16.5
 			}
 			catch(Exception exc) {}
 		};
