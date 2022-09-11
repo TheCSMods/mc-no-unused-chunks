@@ -28,13 +28,15 @@ sourceSets {
     }
 }
 
-mixin {
+mixin
+{
 	add sourceSets.main, 'mixins.nounusedchunks.refmap.json'
     config 'nounusedchunks.mixins.json'
+    config 'nounusedchunks.client.mixins.json'
 }
 
 
-version = '0.2'
+version = '1.0'
 group = 'thecsdev' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'nounusedchunks'
 

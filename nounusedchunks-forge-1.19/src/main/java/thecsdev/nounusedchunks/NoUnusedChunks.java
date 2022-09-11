@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
+import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.loading.FMLEnvironment;
@@ -82,5 +83,8 @@ public class NoUnusedChunks
 	public static String getModName() { return ModName; }
 	public static String getModID() { return ModID; }
 	public static NoUnusedChunks getInstance() { return Instance; }
+	// ==================================================
+	public static Component tt(String key) { return Component.translatable(key); }
+	public static Component lt(String text) { return Component.literal(text); }
 	// ==================================================
 }

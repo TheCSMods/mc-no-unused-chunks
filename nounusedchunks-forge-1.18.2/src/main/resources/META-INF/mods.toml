@@ -4,7 +4,7 @@ license="LGPL-3.0-or-later"
 
 [[mods]]
 modId="nounusedchunks"
-version="0.2"
+version="1.0"
 displayName="No Unused Chunks"
 description="Reduces world size by discarding unused chunks."
 logoFile="nounusedchunks_logo.png"
