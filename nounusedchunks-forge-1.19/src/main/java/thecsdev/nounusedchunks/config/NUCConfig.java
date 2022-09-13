@@ -13,6 +13,8 @@ public final class NUCConfig
 	// ==================================================
 	public static boolean ENABLED = true;
 	public static int UNFLAG_CHANCE = 100;
+	// -------------------------------------------------- TEMP. VALUES:
+	public static boolean OW_RUC = false; //remove unused chunks
 	// ==================================================
 	public static void saveProperties()
 	{

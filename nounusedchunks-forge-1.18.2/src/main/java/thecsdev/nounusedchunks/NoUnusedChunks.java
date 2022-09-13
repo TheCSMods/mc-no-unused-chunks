@@ -5,9 +5,13 @@ import org.slf4j.LoggerFactory;
 
 import net.minecraft.CrashReport;
 import net.minecraft.ReportedException;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.ChunkPos;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModContainer;
 import net.minecraftforge.fml.ModList;
@@ -95,5 +99,15 @@ public class NoUnusedChunks
 	// ==================================================
 	public static Component tt(String key) { return new TranslatableComponent(key); }
 	public static Component lt(String text) { return new TextComponent(text); }
+	// ==================================================
+	/**
+	 * Returns true if a chunk is unused.
+	 * (well, it's supposed to. idk)
+	 */
+	public static boolean isChunkUnused(ResourceKey<Level> worldRegKey, ChunkPos chunkPos, CompoundTag chunkNbt)
+	{
+		return chunkNbt.contains("InhabitedTime") &&
+				chunkNbt.getLong("InhabitedTime") == 0;
+	}
 	// ==================================================
 }

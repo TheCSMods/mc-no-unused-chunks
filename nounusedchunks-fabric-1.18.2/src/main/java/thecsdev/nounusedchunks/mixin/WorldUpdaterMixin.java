@@ -116,14 +116,14 @@ public abstract class WorldUpdaterMixin
 		{
 			//flags
 		    boolean willKeepUpgradingChunks = false;
-		    float g = 0.0F;
+		    float progressTrack = 0.0F;
 		    
 		    //iterate RegistryKey<World>-s
 		    for (UnmodifiableIterator<RegistryKey<World>> worldIterator = immutableSet.iterator(); worldIterator.hasNext();)
 		    {
 		        RegistryKey<World> worldRegKey = worldIterator.next();
 		        ListIterator<ChunkPos> worldChunkIterator = (ListIterator<ChunkPos>) immutableMap.get(worldRegKey);
-		        VersionedChunkStorage versionedChunkStorage = (VersionedChunkStorage) worldRegionFiles.get(worldRegKey);
+		        VersionedChunkStorage versionedChunkStorage = worldRegionFiles.get(worldRegKey);
 		        VersionedChunkStorage __vcsTemp = __worldTempRegionFiles.get(worldRegKey);
 		        
 		        if (worldChunkIterator.hasNext())
@@ -201,10 +201,10 @@ public abstract class WorldUpdaterMixin
 		        
 		        float h = worldChunkIterator.nextIndex() / f;
 		        this.dimensionProgress.put(worldRegKey, h);
-		        g += h;
+		        progressTrack += h;
 		    }
 		    
-		    this.progress = g;
+		    this.progress = progressTrack;
 		    if (!willKeepUpgradingChunks) this.keepUpgradingChunks = false;
 		}
 		

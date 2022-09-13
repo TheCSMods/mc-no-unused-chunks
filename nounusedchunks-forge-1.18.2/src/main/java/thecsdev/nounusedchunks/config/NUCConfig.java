@@ -13,6 +13,9 @@ public final class NUCConfig
 	// ==================================================
 	public static boolean ENABLED = true;
 	public static int UNFLAG_CHANCE = 100;
+	// -------------------------------------------------- TEMP. VALUES:
+	public static boolean OW_RUC = false; //remove unused chunks
+	public static boolean OW_RLC = false; //remove lighting cache
 	// ==================================================
 	public static void saveProperties()
 	{
@@ -67,6 +70,10 @@ public final class NUCConfig
 			//read the properties
 			ENABLED = smartBool(prop.getProperty("ENABLED"), true);
 			UNFLAG_CHANCE = smartInt(prop.getProperty("UNFLAG_CHANCE"), 1, 100, 100);
+			
+			//read OW_RUC just so dedicated servers can use it.
+			//useless on the client
+			OW_RUC = smartBool(prop.getProperty("OW_RUC"), false);
 			
 			//log
 			NoUnusedChunks.LOGGER.info("Loaded '" + NoUnusedChunks.ModID + "' config.");

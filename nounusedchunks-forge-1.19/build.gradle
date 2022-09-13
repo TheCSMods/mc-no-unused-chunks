@@ -36,7 +36,7 @@ mixin
 }
 
 
-version = '1.0'
+version = '1.3'
 group = 'thecsdev' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'nounusedchunks'
 

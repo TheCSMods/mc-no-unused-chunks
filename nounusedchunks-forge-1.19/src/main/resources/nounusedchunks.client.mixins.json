@@ -4,7 +4,7 @@
 	"package": "thecsdev.nounusedchunks.client.mixin",
 	"refmap": "mixins.nounusedchunks.refmap.json",
 	"compatibilityLevel": "JAVA_17",
-	"client": ["ModListScreenMixin"],
+	"client": ["ModListScreenMixin", "BackupConfirmScreenMixin"],
 	"injectors":
 	{
 		"defaultRequire": 1

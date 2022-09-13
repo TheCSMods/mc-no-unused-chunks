@@ -15,7 +15,7 @@ import net.minecraftforge.client.gui.widget.ModListWidget;
 import thecsdev.nounusedchunks.NoUnusedChunks;
 import thecsdev.nounusedchunks.client.gui.screen.NUCConfigScreen;
 
-@Mixin(ModListScreen.class)
+@Mixin(value = ModListScreen.class, remap = false)
 public abstract class ModListScreenMixin extends Screen
 {
 	protected ModListScreenMixin(Component p_96550_) { super(p_96550_); }
