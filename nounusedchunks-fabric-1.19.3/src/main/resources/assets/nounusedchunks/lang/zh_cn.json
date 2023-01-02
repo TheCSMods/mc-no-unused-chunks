@@ -1,0 +1,12 @@
+{
+	"nounusedchunks.backupprompt.removeuninhabitedchunks": "删除无人居住的区块",
+	"nounusedchunks.backupprompt.removeuninhabitedchunks.tooltip": "删除所有从未被玩家居住过的区块。虽然这可能会使世界的大小减少很多，但请记住，这也可能会删除你可能需要的区块，而实际上并没有访问过它们。例如，这可能最终会删除由另一个模组或工具或程序修改的块。在这样做之前，请备份你的世界，并确保这些区块被正确删除。",
+
+	"nounusedchunks.clothconfig.required": "[%s] 模组配置 GUI 需要 Cloth Config API 模组。",
+	"nounusedchunks.clothconfig.title": "No Unused Chunks 配置",
+	"nounusedchunks.clothconfig.general": "通用",
+	"nounusedchunks.clothconfig.general.enabled": "启用",
+	"nounusedchunks.clothconfig.general.enabled.tooltip": "本模组是否被启用。 启用后，新生成的、未被触及的块将不会被标记为「需要保存」。",
+	"nounusedchunks.clothconfig.general.unflag_chance": "不标记几率（高级）",
+	"nounusedchunks.clothconfig.general.unflag_chance.tooltip": "定义了一个新生成的区块不会被标记为「需要保存」的几率。 较低的几率意味着更多新生成的区块将立即被保存，就像它们通常会被保存一样， 同时以驱动器存储为代价来节省性能，而较高的值将使模组取消标记更多新生成的块为「需要保存」，从而以性能为代价来节省更多存储。"
+}
