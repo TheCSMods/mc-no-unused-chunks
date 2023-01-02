@@ -29,13 +29,16 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	
-	// Cloth config
-	modApi("me.shedaniel.cloth:cloth-config-fabric:7.0.73") {
+	// Cloth config - wanted to keep, but removed because they can't handle tooltips properly
+	/*modApi("me.shedaniel.cloth:cloth-config-fabric:8.2.88") {
         exclude(group: "net.fabricmc.fabric-api")
-    }
+    }*/
     
     // Mod Menu
-    modImplementation "com.terraformersmc:modmenu:4.0.4"
+    modApi "com.terraformersmc:modmenu:4.1.2"
+    
+    // TCDCommons
+	modApi(files("src/main/resources/${project.mod_jar_tcdcommons}"))
 
 	// Uncomment the following line to enable the deprecated Fabric API modules. 
 	// These are included in the Fabric API production distribution and allow you to update your mod to the latest modules at a later more convenient time.
@@ -43,12 +46,9 @@ dependencies {
 	// modImplementation "net.fabricmc.fabric-api:fabric-api-deprecated:${project.fabric_version}"
 }
 
-processResources {
-	inputs.property "version", project.version
-
-	filesMatching("fabric.mod.json") {
-		expand "version": project.version
-	}
+processResources
+{
+	filesMatching("fabric.mod.json") { expand "project": project }
 }
 
 tasks.withType(JavaCompile).configureEach {

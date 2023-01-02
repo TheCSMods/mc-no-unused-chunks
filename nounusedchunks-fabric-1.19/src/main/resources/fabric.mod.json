@@ -1,7 +1,7 @@
 {
 	"schemaVersion": 1,
 	"id": "nounusedchunks",
-	"version": "${version}",
+	"version": "${project.mod_version}",
 
 	"name": "No Unused Chunks",
 	"description": "Reduces world size by discarding unused chunks.",
@@ -25,6 +25,7 @@
 	},
 	"mixins": ["nounusedchunks.mixins.json", "nounusedchunks.client.mixins.json"],
 
+	"jars": [ { "file":"${project.mod_jar_tcdcommons}" } ],
 	"depends":
 	{
 		"fabricloader": ">=0.12.12",
@@ -34,7 +35,21 @@
 	},
 	"recommends":
 	{
-		"cloth-config": "*",
-		"modmenu": "*"
+		"modmenu": "*",
+		"tcdcommons": "2.x"
+	},
+
+	"custom":
+	{
+		"modmenu":
+		{
+			"links":
+			{
+				"modmenu.curseforge": "${project.modmenu_link_curseforge}",
+				"modmenu.modrinth": "${project.modmenu_link_modrinth}",
+				"modmenu.kofi": "${project.modmenu_link_kofi}",
+				"modmenu.youtube": "${project.modmenu_link_youtube}"
+			}
+		}
 	}
 }

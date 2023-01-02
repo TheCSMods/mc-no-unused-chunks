@@ -4,8 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import net.fabricmc.api.EnvType;
-import net.fabricmc.loader.api.FabricLoader;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.Text;
 import net.minecraft.util.crash.CrashException;
@@ -86,15 +84,6 @@ public abstract class NoUnusedChunks
 	 */
 	public abstract NUCCommand<?> getCommand();
 	// ==================================================
-	public static Screen getConfigScreen(Screen parent)
-	{
-		//if cloth config is loaded, create a screen and return it
-		if(FabricLoader.getInstance().isModLoaded("cloth-config"))
-			return thecsdev.nounusedchunks.client.gui.NUCClothConfig.createConfigScreen(parent);
-		//else return null
-		else return null;
-	}
-	// --------------------------------------------------
 	public static Text tt(String translationKey) { return Text.translatable(translationKey); }
 	public static Text lt(String text) { return Text.literal(text); }
 	// --------------------------------------------------

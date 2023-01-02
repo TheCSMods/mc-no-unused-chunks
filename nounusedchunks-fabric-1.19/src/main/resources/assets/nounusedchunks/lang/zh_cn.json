@@ -6,7 +6,7 @@
 	"nounusedchunks.clothconfig.title": "No Unused Chunks 配置",
 	"nounusedchunks.clothconfig.general": "通用",
 	"nounusedchunks.clothconfig.general.enabled": "启用",
-	"nounusedchunks.clothconfig.general.enabled.tooltip": "本模组是否被启用。\n启用后，新生成的、未被触及的块将不会被标记为「需要保存」。",
+	"nounusedchunks.clothconfig.general.enabled.tooltip": "本模组是否被启用。 启用后，新生成的、未被触及的块将不会被标记为「需要保存」。",
 	"nounusedchunks.clothconfig.general.unflag_chance": "不标记几率（高级）",
-	"nounusedchunks.clothconfig.general.unflag_chance.tooltip": "定义了一个新生成的区块不会被标记为「需要保存」的几率。\n较低的几率意味着更多新生成的区块将立即被保存，就像它们通常会被保存一样，\n同时以驱动器存储为代价来节省性能，而较高的值将使模组取消标记更多新生成的块为「需要保存」，从而以性能为代价来节省更多存储。"
+	"nounusedchunks.clothconfig.general.unflag_chance.tooltip": "定义了一个新生成的区块不会被标记为「需要保存」的几率。 较低的几率意味着更多新生成的区块将立即被保存，就像它们通常会被保存一样， 同时以驱动器存储为代价来节省性能，而较高的值将使模组取消标记更多新生成的块为「需要保存」，从而以性能为代价来节省更多存储。"
 }

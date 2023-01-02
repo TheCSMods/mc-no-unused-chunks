@@ -1,4 +1,4 @@
-package thecsdev.nounusedchunks.client.gui;
+/*package thecsdev.nounusedchunks.client.gui;
 
 import me.shedaniel.clothconfig2.api.ConfigBuilder;
 import me.shedaniel.clothconfig2.api.ConfigCategory;
@@ -37,4 +37,4 @@ public final class NUCClothConfig
 	}
 	
 	public static MutableText tt(String key) { return Text.translatable(key); }
-}
+}*/
