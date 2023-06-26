@@ -1,6 +1,6 @@
 package io.github.thecsdev.nounusedchunks;
 
-public class NoUnusedChunksConfig
+public final class NoUnusedChunksConfig
 {
 	/**
 	 * <b>Optimize world screen - Remove unused chunks.</b><br/>

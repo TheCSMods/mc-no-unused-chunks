@@ -46,9 +46,9 @@ dependencies
 
 processResources
 {
-	inputs.property "version", project.version
+	// inputs.property "version", project.version
 	filesMatching("fabric.mod.json") { expand project.properties }
-	filesMatching("LICENSE") { expand project.properties }
+	filesMatching("**/mods.toml") { expand project.properties }
 }
 
 tasks.withType(JavaCompile).configureEach
@@ -71,6 +71,15 @@ java
 
 jar
 {
+	//exclude all .class files outside of the maven group
+	def includeOnlyPackage = project.maven_group.replaceAll('\\.', '/')
+	eachFile { fileCopyDetails ->
+        if (fileCopyDetails.name.endsWith('.class') && !fileCopyDetails.relativePath.pathString.startsWith(includeOnlyPackage)) {
+            fileCopyDetails.exclude()
+        }
+    }
+    
+    //handle the license file
 	from("LICENSE") { rename { "${it}_${project.archivesBaseName}"} }
 }
 

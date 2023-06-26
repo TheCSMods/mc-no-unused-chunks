@@ -3,20 +3,19 @@ package io.github.thecsdev.nounusedchunks;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import net.fabricmc.loader.api.FabricLoader;
-import net.fabricmc.loader.api.ModContainer;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.nbt.NbtElement;
 
-public class NoUnusedChunks extends Object
+public abstract class NoUnusedChunks extends Object
 {
 	// ==================================================
 	public static final Logger LOGGER = LoggerFactory.getLogger(getModID());
 	// --------------------------------------------------
-	private static final String ModID = "nounusedchunks";
+	static final String ModName = "No Unused Chunks";
+	static final String ModID = "nounusedchunks";
 	private static NoUnusedChunks Instance;
 	// --------------------------------------------------
-	protected final ModContainer modInfo;
+	//protected final ModContainer modInfo;
 	// ==================================================
 	public NoUnusedChunks()
 	{
@@ -28,21 +27,21 @@ public class NoUnusedChunks extends Object
 		
 		//assign instance
 		Instance = this;
-		modInfo = FabricLoader.getInstance().getModContainer(getModID()).get();
+		//modInfo = FabricLoader.getInstance().getModContainer(getModID()).get();
 		
 		//log stuff
-		LOGGER.info("Initializing '" + getModName() + "' " + modInfo.getMetadata().getVersion() +
-				" as '" + getClass().getSimpleName() + "'.");
-		//LOGGER.info("Initializing '" + getModID() + "' as '" + getClass().getSimpleName() + "'.");
+		/*LOGGER.info("Initializing '" + getModName() + "' " + modInfo.getMetadata().getVersion() +
+				" as '" + getClass().getSimpleName() + "'.");*/
+		LOGGER.info("Initializing '" + getModName() + "' as '" + getClass().getSimpleName() + "'.");
 		
 		//init stuff
 		//TODO - Initialize common stuff here (client/dedicated-server/internal-server)
 	}
 	// ==================================================
 	public static NoUnusedChunks getInstance() { return Instance; }
-	public ModContainer getModInfo() { return modInfo; }
+	//public ModContainer getModInfo() { return modInfo; }
 	// --------------------------------------------------
-	public static String getModName() { return getInstance().getModInfo().getMetadata().getName(); }
+	public static String getModName() { return ModName; }
 	public static String getModID() { return ModID; }
 	// --------------------------------------------------
 	public static boolean isModInitialized() { return isInstanceValid(Instance); }
