@@ -1,3 +1,7 @@
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import java.lang.reflect.Type
+
 plugins
 {
 	id 'fabric-loom' version '1.0-SNAPSHOT'
@@ -47,9 +51,35 @@ dependencies
 processResources
 {
 	// inputs.property "version", project.version
-	filesMatching("fabric.mod.json") { expand project.properties }
-	filesMatching("**/mods.toml") { expand project.properties }
+	filesMatching(["fabric.mod.json", "**/mods.toml"]) { expand project.properties }
 }
+
+//this task includes `MixinConfigs` metadata for the Forge platform
+//(it is important that this task runs AFTER the `processResources` task)
+task updateMixinConfigs
+{
+	doLast
+	{
+		// 1. Read the `fabric.mod.json` file and parse the JSON.
+		File jsonFile = file('src/main/resources/fabric.mod.json')
+		String jsonString = jsonFile.text
+		Gson gson = new Gson()
+		Type type = new TypeToken<Map<String, Object>>(){}.getType()
+		Map<String, Object> jsonMap = gson.fromJson(jsonString, type)
+
+		// Check if the `mixins` property exists
+		if (!jsonMap.containsKey("mixins")) { return }
+
+		// 2. Extract the `mixins` array and convert it to a string.
+		List<String> mixinList = (List<String>) jsonMap.get("mixins")
+		String mixinConfigs = String.join(",", mixinList)
+
+		// 3. Add the resulting string to the `MixinConfigs` property in the `MANIFEST.MF` file.
+		jar { manifest { attributes 'MixinConfigs': mixinConfigs } }
+	}
+}
+updateMixinConfigs.mustRunAfter processResources //this task depends on that task being run first
+jar.dependsOn updateMixinConfigs //important to execute before the `jar` task
 
 tasks.withType(JavaCompile).configureEach
 {
